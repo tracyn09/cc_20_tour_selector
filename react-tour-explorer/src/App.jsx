@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import DestinationSelector from './DestinationSelector' //passing selected destinination
+import Gallery from './Gallery'
 
 //useState to store tours, pass loading, and error
 function App() {
@@ -7,6 +8,11 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)   
   const [selectedDestination, setSelectedDestination] = useState('All')  
+
+  const handleRemove = (id) => {
+    setTours(tours.filter((tour) => tour.id !== id));
+  };
+  
 
 
 //Fetch tours from API using useEffect
@@ -34,6 +40,7 @@ function App() {
       {!loading && <p>{tours.length} tours available.</p>}
       {!loading && <DestinationSelector tours={tours} selected={selectedDestination} setSelected={setSelectedDestination} />}
       
+      <Gallery tours={tours} selected={selectedDestination} onRemove={handleRemove}/>
 
     </div>
   )
