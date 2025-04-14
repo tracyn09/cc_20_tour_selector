@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
-
+import DestinationSelector from './DestinationSelector' //passing selected destinination
 
 //useState to store tours, pass loading, and error
 function App() {
   const [tours, setTours] = useState([])      
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)   
- 
+  const [selectedDestination, setSelectedDestination] = useState('All')  
 
 
 //Fetch tours from API using useEffect
@@ -32,7 +32,8 @@ function App() {
       {loading && <p>Loading tours...</p>}
       {error && <p>{error}</p>}
       {!loading && <p>{tours.length} tours available.</p>}
-
+      {!loading && <DestinationSelector tours={tours} selected={selectedDestination} setSelected={setSelectedDestination} />}
+      
 
     </div>
   )
